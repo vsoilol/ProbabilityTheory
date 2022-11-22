@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+	<w:style w:type="paragraph" w:styleId="Heading1">
+		<w:basedOn w:val="Normal" />
+		<w:next w:val="Normal" />
+		<w:name w:val="heading 1" />
+		<w:qFormat />
+		<w:rPr>
+			<w:b />
+			<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />
+			<w:sz w:val="32" />
+		</w:rPr>
+		<w:pPr>
+			<w:spacing w:before="240" w:after="240" w:line="240" w:lineRule="auto" />
+			<w:jc w:val="center" />
+			<w:outlineLvl w:val="0" />
+		</w:pPr>
+	</w:style>
+	<w:style w:type="paragraph" w:styleId="Heading2">
+		<w:basedOn w:val="Normal" />
+		<w:next w:val="Normal" />
+		<w:name w:val="heading 2" />
+		<w:qFormat />
+		<w:rPr>
+			<w:b />
+			<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />
+			<w:sz w:val="28" />
+		</w:rPr>
+		<w:pPr>
+			<w:ind w:firstLine="709" />
+			<w:spacing w:line="240" w:lineRule="auto" />
+			<w:jc w:val="both" />
+			<w:outlineLvl w:val="1" />
+		</w:pPr>
+	</w:style>
+	<w:style w:type="table" w:styleId="TableGrid">
+		<w:basedOn w:val="Normal Table" />
+		<w:name w:val="Table Grid" />
+		<w:rPr>
+			<w:b />
+			<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />
+			<w:sz w:val="28" />
+		</w:rPr>
+		<w:pPr>
+			<w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+		</w:pPr>
+	</w:style>
+</w:styles>
