@@ -1,4 +1,4 @@
-﻿namespace IndividualTask2.Models
+﻿namespace Common.Models
 {
     public record EmpiricalFunction(decimal LeftBorder, decimal RightBorder, decimal Value)
     {

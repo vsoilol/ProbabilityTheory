@@ -33,6 +33,7 @@ namespace IndividualTask2
         {
             DisplayTask_1_a(mathData);
             DisplayTask_1_b(mathData);
+            Console.WriteLine(String.Join(',', mathData.Values.SelectMany(_ => Enumerable.Repeat(_.Value, _.Count).ToArray())));
             DisplaySampleAverage(mathData.SampleAverage);
             DisplaySampleVariance(mathData.SampleVariance);
             DisplaySampleMeanSquareDeviation(mathData.SampleMeanSquareDeviation);
@@ -89,7 +90,7 @@ namespace IndividualTask2
             Console.WriteLine($"Исправленное выборочное среднее квадратическое отклонение: {correctedSampleMeanSquareDeviation}");
         }
 
-        private void DisplayVariationScope(int variationScope)
+        private void DisplayVariationScope(decimal variationScope)
         {
             Console.WriteLine($"Размах вариации: {variationScope}");
         }

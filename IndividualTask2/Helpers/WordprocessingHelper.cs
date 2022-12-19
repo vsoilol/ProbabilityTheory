@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Fonts = Common.Constants.Fonts;
 
 namespace IndividualTask2.Helpers
 {
@@ -129,7 +130,7 @@ namespace IndividualTask2.Helpers
             Style style = new Style()
             {
                 Type = StyleValues.Paragraph,
-                StyleId = Constants.Styles.Heading1,
+                StyleId = Common.Constants.Styles.Heading1,
                 BasedOn = new BasedOn() { Val = "Normal" },
                 NextParagraphStyle = new NextParagraphStyle() { Val = "Normal" }
             };
@@ -142,10 +143,10 @@ namespace IndividualTask2.Helpers
 
             styleRunProperties1.Append(new RunFonts()
             {
-                Ascii = Constants.Fonts.TimesNewRoman,
-                HighAnsi = Constants.Fonts.TimesNewRoman,
-                EastAsia = Constants.Fonts.TimesNewRoman,
-                ComplexScript = Constants.Fonts.TimesNewRoman
+                Ascii = Fonts.TimesNewRoman,
+                HighAnsi = Fonts.TimesNewRoman,
+                EastAsia = Fonts.TimesNewRoman,
+                ComplexScript = Fonts.TimesNewRoman
             });
             styleRunProperties1.Append(new FontSize() { Val = GetSize(16) });
             style.Append(styleRunProperties1);
@@ -166,7 +167,7 @@ namespace IndividualTask2.Helpers
             Style style = new Style()
             {
                 Type = StyleValues.Paragraph,
-                StyleId = Constants.Styles.Heading2,
+                StyleId = Common.Constants.Styles.Heading2,
                 BasedOn = new BasedOn() { Val = "Normal" },
                 NextParagraphStyle = new NextParagraphStyle() { Val = "Normal" }
             };
@@ -179,10 +180,10 @@ namespace IndividualTask2.Helpers
 
             styleRunProperties1.Append(new RunFonts()
             {
-                Ascii = Constants.Fonts.TimesNewRoman,
-                HighAnsi = Constants.Fonts.TimesNewRoman,
-                EastAsia = Constants.Fonts.TimesNewRoman,
-                ComplexScript = Constants.Fonts.TimesNewRoman
+                Ascii = Fonts.TimesNewRoman,
+                HighAnsi = Fonts.TimesNewRoman,
+                EastAsia = Fonts.TimesNewRoman,
+                ComplexScript = Fonts.TimesNewRoman
             });
             styleRunProperties1.Append(new FontSize() { Val = GetSize(14) });
 
@@ -204,7 +205,7 @@ namespace IndividualTask2.Helpers
             Style style = new Style()
             {
                 Type = StyleValues.Table,
-                StyleId = Constants.Styles.TableGrid,
+                StyleId = Common.Constants.Styles.TableGrid,
                 BasedOn = new BasedOn() { Val = "Normal Table" }
             };
 
@@ -216,10 +217,10 @@ namespace IndividualTask2.Helpers
 
             styleRunProperties1.Append(new RunFonts()
             {
-                Ascii = Constants.Fonts.TimesNewRoman,
-                HighAnsi = Constants.Fonts.TimesNewRoman,
-                EastAsia = Constants.Fonts.TimesNewRoman,
-                ComplexScript = Constants.Fonts.TimesNewRoman
+                Ascii = Fonts.TimesNewRoman,
+                HighAnsi = Fonts.TimesNewRoman,
+                EastAsia = Fonts.TimesNewRoman,
+                ComplexScript = Fonts.TimesNewRoman
             });
             styleRunProperties1.Append(new FontSize() { Val = GetSize(12) });
 

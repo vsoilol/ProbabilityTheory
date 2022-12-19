@@ -2,12 +2,13 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Common.Constants;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using IndividualTask2.Constants;
 using IndividualTask2.Helpers;
 using IndividualTask2.Models;
+using Styles = Common.Constants.Styles;
 
 namespace IndividualTask2
 {
@@ -70,16 +71,16 @@ namespace IndividualTask2
         private void AddTaskOne(Body docBody, MathData mathData)
         {
             var taskNumber =
-                _wordprocessingHelper.CreateParagraphWithText("№ 1", Constants.Styles.Heading1);
+                _wordprocessingHelper.CreateParagraphWithText("№ 1", Styles.Heading1);
 
             var taskAInfo = _wordprocessingHelper.CreateParagraphWithText("а) построить дискретный статистический ряд",
-                Constants.Styles.Heading2);
+                Styles.Heading2);
 
             Table table = new Table();
 
             TableProperties tblProp = new TableProperties();
             TableWidth tableWidth = new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct };
-            TableStyle tableStyle = new TableStyle() { Val = Constants.Styles.TableGrid };
+            TableStyle tableStyle = new TableStyle() { Val = Styles.TableGrid };
             tblProp.Append(tableStyle, tableWidth);
             // Append the TableProperties object to the empty table.
             table.AppendChild<TableProperties>(tblProp);

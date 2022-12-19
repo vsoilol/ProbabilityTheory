@@ -1,53 +1,52 @@
 ﻿using System.Collections.Generic;
+using Common.Models;
 
 namespace IndividualTask2.Models
 {
     public class MathData
     {
-        public int[] Numbers { get; set; }
+        public StatisticalData[] Values { get; init; }
         
-        public IReadOnlyList<StatisticalData> Values { get; set; }
-        
-        public IReadOnlyList<EmpiricalFunction> EmpiricalFunctionValues { get; set; }
+        public EmpiricalFunction[] EmpiricalFunctionValues { get; init; }
         
         /// <summary>
         /// Выборочное среднее
         /// </summary>
-        public decimal SampleAverage { get; set; }
+        public decimal SampleAverage { get; init; }
 
         /// <summary>
         /// Выборочная дисперсия
         /// </summary>
-        public decimal SampleVariance { get; set; }
+        public decimal SampleVariance { get; init; }
 
         /// <summary>
         /// Выборочное среднее квадратическое отклонение
         /// </summary>
-        public decimal SampleMeanSquareDeviation { get; set; }
+        public decimal SampleMeanSquareDeviation { get; init; }
 
         /// <summary>
         /// Исправленная выборочная дисперсия
         /// </summary>
-        public decimal CorrectedSampleVariance { get; set; }
+        public decimal CorrectedSampleVariance { get; init; }
 
         /// <summary>
         /// Исправленное выборочное среднее квадратическое отклонение
         /// </summary>
-        public decimal CorrectedSampleMeanSquareDeviation { get; set; }
+        public decimal CorrectedSampleMeanSquareDeviation { get; init; }
 
         /// <summary>
         /// Размах вариации
         /// </summary>
-        public int VariationScope { get; set; }
+        public decimal VariationScope { get; init; }
 
         /// <summary>
         /// Мода
         /// </summary>
-        public decimal Mode { get; set; }
+        public decimal Mode { get; init; }
 
         /// <summary>
         /// Медиана
         /// </summary>
-        public decimal Median { get; set; }
+        public decimal Median { get; init; }
     }
 }

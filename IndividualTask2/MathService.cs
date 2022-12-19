@@ -1,133 +1,133 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Common.Calculators;
+using Common.Models;
+using Common.Models.Inputs;
 using IndividualTask2.Models;
 
 namespace IndividualTask2
 {
     public class MathService
     {
-        //private MathData _mathData;
+        private readonly RepeatedValuesWithFrequencyCalculator _repeatedValuesWithFrequencyCalculator = new();
 
-        public MathData CalculateAllNeededData(int[] numbers)
+        private readonly EmpiricalFunctionCalculator _empiricalFunctionCalculator = new();
+        private readonly SampleAverageCalculator _sampleAverageCalculator = new();
+        private readonly SampleVarianceCalculator _sampleVarianceCalculator = new();
+
+        private readonly SampleMeanSquareDeviationCalculator _sampleMeanSquareDeviationCalculator = new();
+
+        private readonly CorrectedSampleVarianceCalculator _correctedSampleVarianceCalculator = new();
+
+        private readonly CorrectedSampleMeanSquareDeviationCalculator _correctedSampleMeanSquareDeviationCalculator =
+            new();
+
+        private readonly VariationScopeCalculator _variationScopeCalculator = new();
+        private readonly ModeCalculator _modeCalculator = new();
+        private readonly MedianCalculator _medianCalculator = new();
+
+        public MathData CalculateAllNeededData(decimal[] numbers)
         {
-            MathData _mathData = new MathData
+            var values = _repeatedValuesWithFrequencyCalculator.Calculate(numbers);
+
+            /*values = new StatisticalData[]
             {
-                Numbers = numbers.OrderBy(_ => _).ToArray()
-            };
+                new StatisticalData(102, 2, 0),
+                new StatisticalData(104, 3, 0),
+                new StatisticalData(108, 5, 0),
+            };*/
             
-            _mathData.Values = CalculateStatisticalData(numbers);
-            /*_mathData.Values = new StatisticalData[]
+            values = new StatisticalData[]
             {
-                new StatisticalData(-0.5m, 1, 0),
-                new StatisticalData(-0.4m, 2, 0),
-                new StatisticalData(-0.2m, 1, 0),
-                new StatisticalData(0, 1, 0),
-                new StatisticalData(0.2m, 1, 0),
-                new StatisticalData(0.6m, 1, 0),
-                new StatisticalData(0.8m, 1, 0),
-                new StatisticalData(1, 1, 0),
-                new StatisticalData(1.2m, 2, 0),
-                new StatisticalData(1.5m, 1, 0),
+                new StatisticalData(8, 6, 0),
+                new StatisticalData(9, 3, 0),
+                new StatisticalData(11, 1, 0),
+            };
+
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(12, 2, 0),
+                new StatisticalData(14, 8, 0),
+                new StatisticalData(15, 4, 0),
+                new StatisticalData(16, 6, 0),
             };*/
 
-            var length = _mathData.Values.Sum(_ => _.Count);
-            
-            _mathData.EmpiricalFunctionValues = CalculateMathFunctionValues(_mathData.Values);
-            _mathData.SampleAverage = CalculateSampleAverage(length, _mathData.Values);
-            _mathData.SampleVariance =
-                CalculateSampleVariance(length, _mathData.Values, _mathData.SampleAverage);
-            _mathData.SampleMeanSquareDeviation = CalculateSampleMeanSquareDeviation(_mathData.SampleVariance);
-            _mathData.CorrectedSampleVariance =
-                CalculateCorrectedSampleVariance(length, _mathData.SampleVariance);
-            _mathData.CorrectedSampleMeanSquareDeviation =
-                CalculateCorrectedSampleMeanSquareDeviation(_mathData.CorrectedSampleVariance);
-            
-            _mathData.VariationScope = CalculateVariationScope(_mathData.Numbers);
-            _mathData.Mode = CalculateMode(_mathData.Values);
-            _mathData.Median = CalculateMedian(_mathData.Numbers);
-            return _mathData;
-        }
-
-        private IReadOnlyList<StatisticalData> CalculateStatisticalData(int[] numbers)
-        {
-            return numbers
-                .OrderBy(_ => _)
-                .GroupBy(_ => _)
-                .Select(_ => new { Value = _.Key, Count = _.Count() })
-                .Select(_ => new StatisticalData(_.Value, _.Count, _.Count / (decimal)100))
-                .ToList();
-        }
-
-        private IReadOnlyList<EmpiricalFunction> CalculateMathFunctionValues(IReadOnlyList<StatisticalData> values)
-        {
-            return values
-                .Take(values.Count - 1)
-                .Select((_, index) =>
-                    new EmpiricalFunction(values[index].Value, values[index + 1].Value,
-                        values.Take(index + 1).Sum(math => math.Frequency))).ToList();
-        }
-
-        private decimal CalculateSampleAverage(int valuesCount, IReadOnlyList<StatisticalData> values)
-        {
-            var sampleAverage = (1 / (decimal)valuesCount) * values.Sum(_ => _.Count * _.Value);
-            return sampleAverage;
-        }
-
-        private decimal CalculateSampleVariance(int valuesCount, IReadOnlyList<StatisticalData> values,
-            decimal sampleAverage)
-        {
-            var sampleAverageSquared = (decimal)Math.Pow((double)sampleAverage, 2);
-            var someSum = (decimal)values.Sum(_ => Math.Pow((double)_.Value, 2) * _.Count);
-
-            var sampleVariance = (1 / (decimal)valuesCount) * someSum - sampleAverageSquared;
-            return sampleVariance;
-        }
-
-        private decimal CalculateSampleMeanSquareDeviation(decimal sampleVariance)
-        {
-            var sampleMeanSquareDeviation = (decimal)Math.Pow((double)sampleVariance, 0.5);
-            return sampleMeanSquareDeviation;
-        }
-
-        private decimal CalculateCorrectedSampleVariance(int valuesCount, decimal sampleVariance)
-        {
-            var correctedSampleVariance = (decimal)valuesCount / (valuesCount - 1) * sampleVariance;
-            return correctedSampleVariance;
-        }
-
-        private decimal CalculateCorrectedSampleMeanSquareDeviation(decimal correctedSampleVariance)
-        {
-            var correctedSampleMeanSquareDeviation = (decimal)Math.Pow((double)correctedSampleVariance, 0.5);
-            return correctedSampleMeanSquareDeviation;
-        }
-
-        private int CalculateVariationScope(int[] numbers)
-        {
-            var variationScope = numbers.Last() - numbers[0];
-            return variationScope;
-        }
-
-        private decimal CalculateMode(IReadOnlyList<StatisticalData> values)
-        {
-            var mode = values.OrderBy(_ => _.Frequency).Last().Value;
-            return mode;
-        }
-
-        private decimal CalculateMedian(int[] numbers)
-        {
-            int k;
-            var numbersCount = numbers.Length;
-
-            if (numbersCount % 2 != 0)
+            /*values = new StatisticalData[]
             {
-                k = (numbersCount - 1) / 2;
-                return numbers[k];
-            }
+                new StatisticalData(10, 2, 0),
+                new StatisticalData(11, 3, 0),
+                new StatisticalData(12, 4, 0),
+                new StatisticalData(13, 1, 0),
+            };*/
 
-            k = numbersCount / 2;
-            var median = (numbers[k - 1] + numbers[k]) / (decimal)2;
-            return median;
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(1, 2, 0),
+                new StatisticalData(3, 5, 0),
+                new StatisticalData(4, 10, 0),
+                new StatisticalData(6, 3, 0),
+            };*/
+
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(13, 10, 0),
+                new StatisticalData(15, 20, 0),
+                new StatisticalData(16, 5, 0),
+                new StatisticalData(17, 15, 0),
+            };*/
+
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(156, 10, 0),
+                new StatisticalData(160, 14, 0),
+                new StatisticalData(164, 26, 0),
+                new StatisticalData(168, 28, 0),
+                new StatisticalData(172, 12, 0),
+                new StatisticalData(176, 8, 0),
+                new StatisticalData(180, 2, 0),
+            };*/
+
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(11, 4, 0),
+                new StatisticalData(12, 19, 0),
+                new StatisticalData(14, 20, 0),
+                new StatisticalData(15, 7, 0),
+            };*/
+            
+            /*values = new StatisticalData[]
+            {
+                new StatisticalData(14, 3, 0),
+                new StatisticalData(18, 4, 0),
+                new StatisticalData(19, 1, 0),
+                new StatisticalData(20, 2, 0),
+            };*/
+
+            var empiricalFunctionValues = _empiricalFunctionCalculator.Calculate(values);
+            var sampleAverage = _sampleAverageCalculator.Calculate(values);
+            var sampleVariance = _sampleVarianceCalculator.Calculate(new SampleVarianceInput(values, sampleAverage));
+            var sampleMeanSquareDeviation = _sampleMeanSquareDeviationCalculator.Calculate(sampleVariance);
+            var correctedSampleVariance =
+                _correctedSampleVarianceCalculator.Calculate(
+                    new CorrectedSampleVarianceInput(values.Sum(_ => _.Count), sampleVariance));
+            var correctedSampleMeanSquareDeviation =
+                _correctedSampleMeanSquareDeviationCalculator.Calculate(correctedSampleVariance);
+            var variationScope = _variationScopeCalculator.Calculate(values);
+            var mode = _modeCalculator.Calculate(values);
+            var median = _medianCalculator.Calculate(values);
+
+            return new MathData
+            {
+                Values = values,
+                EmpiricalFunctionValues = empiricalFunctionValues,
+                SampleAverage = sampleAverage,
+                SampleVariance = sampleVariance,
+                SampleMeanSquareDeviation = sampleMeanSquareDeviation,
+                CorrectedSampleVariance = correctedSampleVariance,
+                CorrectedSampleMeanSquareDeviation = correctedSampleMeanSquareDeviation,
+                VariationScope = variationScope,
+                Mode = mode,
+                Median = median
+            };
         }
     }
 }

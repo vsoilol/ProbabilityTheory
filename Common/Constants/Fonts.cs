@@ -1,4 +1,4 @@
-﻿namespace IndividualTask2.Constants
+﻿namespace Common.Constants
 {
     public static class Fonts
     {
